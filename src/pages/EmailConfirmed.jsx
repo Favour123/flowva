@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { supabase } from '@/lib/supabase'
+import { supabase } from "@/lib/supabase";
 import { useNavigate } from "react-router-dom";
 
 export default function EmailConfirmed() {
@@ -7,11 +7,11 @@ export default function EmailConfirmed() {
   const [status, setStatus] = useState("confirming");
 
   useEffect(() => {
-    const handleConfirmation = async () => {
-      // This consumes the hash and sets the session
+    const confirmEmail = async () => {
       const { data, error } = await supabase.auth.getSession();
 
       if (error) {
+        console.error(error);
         setStatus("error");
         return;
       }
@@ -19,29 +19,33 @@ export default function EmailConfirmed() {
       if (data?.session) {
         setStatus("success");
 
-        // Redirect to login after 3s
+        // Redirect after short delay
         setTimeout(() => {
           navigate("/login");
-        }, 3000);
+        }, 2000);
+      } else {
+        setStatus("error");
       }
     };
 
-    handleConfirmation();
+    confirmEmail();
   }, [navigate]);
 
-  if (status === "confirming") {
-    return <p style={{ textAlign: "center" }}>Confirming your email…</p>;
-  }
-
-  if (status === "error") {
-    return <p style={{ textAlign: "center" }}>Invalid or expired link.</p>;
-  }
-
   return (
-    <div style={{ textAlign: "center", marginTop: "100px" }}>
-      <h1>🎉 Email Confirmed</h1>
-      <p>Thank you for confirming your email.</p>
-      <p>Redirecting you to login…</p>
+    <div style={{ padding: "60px", textAlign: "center" }}>
+      {status === "confirming" && <h2>Confirming your email…</h2>}
+      {status === "success" && (
+        <>
+          <h2>✅ Email confirmed successfully</h2>
+          <p>Redirecting you to login…</p>
+        </>
+      )}
+      {status === "error" && (
+        <>
+          <h2>❌ Confirmation failed</h2>
+          <p>Please try logging in or request a new link.</p>
+        </>
+      )}
     </div>
   );
 }
