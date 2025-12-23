@@ -6,7 +6,7 @@ import Signup from './pages/Signup'
 import Dashboard from './pages/Dashboard'
 import Home from './pages/Home'
 import ComingSoon from './pages/ComingSoon'
-import EmailConfirmed from './components/EmailConfirmed'
+import EmailConfirmed from './pages/EmailConfirmed'
 
 function App() {
   return (
@@ -14,6 +14,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/email-confirmed" element={<EmailConfirmed />} />
           <Route path="/signup" element={<Signup />} />
           <Route
             path="/dashboard"
@@ -71,7 +72,7 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="/email-confirmed" element={<EmailConfirmed />} />
+          
           <Route path="/" element={<Navigate to="/dashboard" replace />} />
           <Route path="*" element={<Navigate to="/dashboard" replace />} />
         </Routes>
