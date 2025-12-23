@@ -16,7 +16,7 @@ export default function EmailConfirmed() {
     <div style={{ textAlign: "center", marginTop: "100px" }}>
       <h1>Email Confirmed 🎉</h1>
       <p>Thank you for confirming your email.</p>
-      <p>Redirecting you to login…</p>
+      <p>Redirecting you to login…..</p>
     </div>
   );
 }
