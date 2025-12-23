@@ -3,6 +3,7 @@ import { Home, Compass, Library, Layers, CreditCard, Diamond, Settings, LogOut, 
 import { useAuth } from '@/contexts/AuthContext'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
+import flowvaLogo from '@/assets/flowva_logo-xVpZI3-U.png'
 
 const menuItems = [
   { icon: Home, label: 'Home', path: '/home' },
@@ -29,7 +30,6 @@ export default function AppSidebar({ isMobileOpen, onClose }) {
     navigate(path)
     if (onClose) onClose()
   }
-
   return (
     <>
       {/* Mobile Overlay */}
@@ -54,12 +54,8 @@ export default function AppSidebar({ isMobileOpen, onClose }) {
       {/* Logo */}
       <div className="p-6">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-blue-600 rounded-lg flex items-center justify-center">
-            <span className="text-white font-bold text-xl">F</span>
-          </div>
-          <span className="text-xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-            Flowva
-          </span>
+          <img src={flowvaLogo} alt="Flowva Logo" className="w-10 h-10" />
+        
         </div>
       </div>
 

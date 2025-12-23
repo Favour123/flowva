@@ -16,7 +16,7 @@ export default function ReferralSection() {
   
   // Generate a simple referral code from user email
   const referralCode = user?.email?.split('@')[0]?.substring(0, 8) || 'user'
-  const referralLink = `https://app.flowvahub.com/signup?ref=${referralCode}9262`
+  const referralLink = `https://flowva-two.vercel.app/signup?ref=${referralCode}9262`
 
   const handleCopy = () => {
     navigator.clipboard.writeText(referralLink)
