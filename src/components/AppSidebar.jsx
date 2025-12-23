@@ -54,7 +54,7 @@ export default function AppSidebar({ isMobileOpen, onClose }) {
       {/* Logo */}
       <div className="p-6">
         <div className="flex items-center gap-3">
-          <img src={flowvaLogo} alt="Flowva Logo" className="w-10 h-10" />
+          <img src={flowvaLogo} alt="Flowva Logo" />
         
         </div>
       </div>
