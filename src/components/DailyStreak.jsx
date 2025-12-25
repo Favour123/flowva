@@ -7,17 +7,17 @@ import { useState } from 'react'
 const weekdays = ['M', 'T', 'W', 'T', 'F', 'S', 'S']
 
 export default function DailyStreak() {
-  const { streak, claimDailyPoints, lastClaimDate } = useRewardsStore()
+  const { streak, claimDailyPoints, lastClaimDate, loading } = useRewardsStore()
   const [claiming, setClaiming] = useState(false)
   
-  const today = new Date().toDateString()
+  const today = new Date().toISOString().split('T')[0]
   const canClaim = lastClaimDate !== today
 
-  const handleClaim = () => {
-    if (!canClaim) return
+  const handleClaim = async () => {
+    if (!canClaim || claiming) return
     
     setClaiming(true)
-    claimDailyPoints()
+    await claimDailyPoints()
     
     setTimeout(() => {
       setClaiming(false)

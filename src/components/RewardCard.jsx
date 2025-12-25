@@ -9,7 +9,8 @@ const iconMap = {
 }
 
 export default function RewardCard({ reward }) {
-  const { points, unlockedRewards } = useRewardsStore()
+  const points = useRewardsStore((state) => state.points)
+  const unlockedRewards = useRewardsStore((state) => state.unlockedRewards) || []
   const Icon = iconMap[reward.icon] || Gift
   const isUnlocked = points >= reward.points || unlockedRewards.includes(reward.id)
 

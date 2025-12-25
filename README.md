@@ -51,50 +51,49 @@ A comprehensive gamification platform built with React, featuring points trackin
 
 ## Supabase Setup
 
-To use the authentication and data features, you'll need to:
+To connect your application with Supabase:
 
-1. Create a Supabase project at [supabase.com](https://supabase.com)
-2. Get your project URL and anon key from the project settings
-3. Add them to your `.env` file
+### 1. Create a Supabase Project
 
-### Database Schema (Optional)
+1. Go to [supabase.com](https://supabase.com) and create a new project
+2. Wait for the project to be fully set up
 
-You can create the following tables in Supabase for full functionality:
+### 2. Get Your API Keys
 
-```sql
--- Users table (handled by Supabase Auth)
+1. Go to Project Settings > API
+2. Copy your project URL and anon/public key
+3. Add them to your `.env` file:
+   ```env
+   VITE_SUPABASE_URL=your_project_url
+   VITE_SUPABASE_ANON_KEY=your_anon_key
+   ```
 
--- User rewards tracking
-create table user_rewards (
-  id uuid default uuid_generate_v4() primary key,
-  user_id uuid references auth.users not null,
-  points integer default 0,
-  streak integer default 0,
-  last_claim_date date,
-  created_at timestamp with time zone default timezone('utc'::text, now()) not null
-);
+### 3. Set Up the Database
 
--- Rewards catalog
-create table rewards (
-  id uuid default uuid_generate_v4() primary key,
-  title text not null,
-  description text,
-  points_required integer not null,
-  icon text,
-  category text,
-  created_at timestamp with time zone default timezone('utc'::text, now()) not null
-);
+1. Go to the SQL Editor in your Supabase dashboard
+2. Copy the contents of `supabase-schema.sql` from this project
+3. Paste and run the SQL script in the SQL Editor
+4. This will create all necessary tables, policies, and initial data
 
--- Referrals
-create table referrals (
-  id uuid default uuid_generate_v4() primary key,
-  referrer_id uuid references auth.users not null,
-  referred_id uuid references auth.users,
-  referral_code text unique not null,
-  status text default 'pending',
-  created_at timestamp with time zone default timezone('utc'::text, now()) not null
-);
-```
+The schema includes:
+- `user_rewards` - Track user points and streaks
+- `rewards` - Catalog of available rewards
+- `user_reward_redemptions` - History of redeemed rewards
+- `referrals` - Track referral links and completions
+
+### 4. Verify Database Setup
+
+After running the schema:
+1. Go to Table Editor in Supabase
+2. You should see all four tables created
+3. The `rewards` table should have 3 default rewards
+
+### 5. Test the Connection
+
+1. Start your development server: `npm run dev`
+2. Sign up with a new account
+3. Your user rewards record should be automatically created
+4. Try claiming daily points to verify database sync
 
 ## Project Structure
 

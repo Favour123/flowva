@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Bell, Star, Share2, Menu } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import AppSidebar from '@/components/AppSidebar'
@@ -8,6 +8,8 @@ import ToolSpotlight from '@/components/ToolSpotlight'
 import RewardCard from '@/components/RewardCard'
 import ReferralSection from '@/components/ReferralSection'
 import { rewards, earnMoreActivities } from '@/data/mockData'
+import { useAuth } from '@/contexts/AuthContext'
+import { useRewardsStore } from '@/stores/useRewardsStore'
 
 const tabs = [
   { id: 'earn', label: 'Earn Points' },
@@ -25,6 +27,14 @@ export default function Dashboard() {
   const [activeTab, setActiveTab] = useState('earn')
   const [activeFilter, setActiveFilter] = useState('all')
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false)
+  const { user } = useAuth()
+  const initializeRewards = useRewardsStore((state) => state.initializeRewards)
+
+  useEffect(() => {
+    if (user?.id) {
+      initializeRewards(user.id)
+    }
+  }, [user?.id, initializeRewards])
 
   return (
     <div className="flex h-screen bg-gray-50">

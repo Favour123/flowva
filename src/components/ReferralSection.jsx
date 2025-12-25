@@ -1,7 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Copy, Check, Users } from 'lucide-react'
 import { motion } from 'framer-motion'
-import { useAuth } from '@/contexts/AuthContext'
+import { useReferrals } from '@/hooks/useReferrals'
 
 const socialIcons = [
   { name: 'Facebook', color: '#1877F2', icon: '📘' },
@@ -11,12 +11,17 @@ const socialIcons = [
 ]
 
 export default function ReferralSection() {
-  const { user } = useAuth()
   const [copied, setCopied] = useState(false)
+  const { referralCode, stats, loading, createNewReferral } = useReferrals()
   
-  // Generate a simple referral code from user email
-  const referralCode = user?.email?.split('@')[0]?.substring(0, 8) || 'user'
-  const referralLink = `https://flowva-two.vercel.app/signup?ref=${referralCode}9262`
+  const referralLink = `${window.location.origin}/signup?ref=${referralCode}`
+
+  useEffect(() => {
+    // Create referral record if it doesn't exist
+    if (referralCode) {
+      createNewReferral()
+    }
+  }, [referralCode])
 
   const handleCopy = () => {
     navigator.clipboard.writeText(referralLink)
@@ -39,11 +44,15 @@ export default function ReferralSection() {
 
         <div className="grid grid-cols-2 gap-4 mb-6">
           <div className="text-center p-4 bg-purple-50 rounded-xl">
-            <div className="text-3xl font-bold text-purple-600">0</div>
+            <div className="text-3xl font-bold text-purple-600">
+              {loading ? '...' : stats.completedReferrals}
+            </div>
             <div className="text-sm text-gray-600 mt-1">Referrals</div>
           </div>
           <div className="text-center p-4 bg-blue-50 rounded-xl">
-            <div className="text-3xl font-bold text-blue-600">0</div>
+            <div className="text-3xl font-bold text-blue-600">
+              {loading ? '...' : stats.pointsEarned}
+            </div>
             <div className="text-sm text-gray-600 mt-1">Points Earned</div>
           </div>
         </div>

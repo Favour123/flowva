@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
+import { useRewardsStore } from "@/stores/useRewardsStore";
 
 const AuthContext = createContext({});
 
@@ -79,6 +80,8 @@ export const AuthProvider = ({ children }) => {
 
   const signOut = async () => {
     const { error } = await supabase.auth.signOut();
+    // Reset rewards store on logout
+    useRewardsStore.getState().resetStore();
     return { error };
   };
 
