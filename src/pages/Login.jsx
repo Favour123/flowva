@@ -29,7 +29,7 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-50 to-blue-50 p-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#9013fe] to-[#6D28D9] p-4">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -38,10 +38,10 @@ export default function Login() {
       >
         <div className="bg-white rounded-2xl shadow-xl p-8">
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-              Welcome Back
+            <h1 className="text-3xl font-bold text-[#6D28D9] bg-clip-text ">
+              Log in to flowva
             </h1>
-            <p className="text-gray-600 mt-2">Sign in to your Rewards Hub</p>
+            <p className="text-gray-600 mt-2">Log in to receive personalized recommendations</p>
           </div>
 
           {error && (
@@ -93,7 +93,7 @@ export default function Login() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white py-3 rounded-lg font-medium hover:shadow-lg transform hover:scale-[1.02] transition disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-gradient-to-r bg-[#9013FE]  text-white py-3 rounded-lg font-medium hover:shadow-lg hover:bg-[#6D28D9] transform hover:scale-[1.02] transition disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? 'Signing in...' : 'Sign In'}
             </button>
@@ -101,7 +101,7 @@ export default function Login() {
 
           <p className="text-center text-gray-600 mt-6">
             Don't have an account?{' '}
-            <Link to="/signup" className="text-purple-600 hover:text-purple-700 font-medium">
+            <Link to="/signup" className="text-[#9013FE] hover:underline font-medium">
               Sign up
             </Link>
           </p>
